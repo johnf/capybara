@@ -198,7 +198,7 @@ class Capybara::Driver::RackTest < Capybara::Driver::Base
   def post_xml(path, attributes = {})
     return if path.gsub(/^#{current_path}/, '') =~ /^#/
     env['CONTENT_TYPE'] = 'text/xml'
-    post(path, attributes, env)
+    post(path, attributes, env.merge('CONTENT_TYPE' => 'text/xml'))
     follow_redirects!
     cache_body
   end
