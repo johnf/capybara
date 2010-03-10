@@ -195,6 +195,14 @@ class Capybara::Driver::RackTest < Capybara::Driver::Base
     cache_body
   end
 
+  def post_xml(path, attributes = {})
+    return if path.gsub(/^#{current_path}/, '') =~ /^#/
+    env['CONTENT_TYPE'] = 'text/xml'
+    post(path, attributes, env)
+    follow_redirects!
+    cache_body
+  end
+
   def current_url
     request.url rescue ""
   end
